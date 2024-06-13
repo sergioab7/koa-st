@@ -2,6 +2,7 @@ import Koa from "koa"
 import Router from "koa-router"
 import bodyParser from "koa-body"
 import config from "./src/config";
+import pool from "./src/DB/connectDB";
 
 const app = new Koa();
 
@@ -19,11 +20,35 @@ router.get("/", async ctx => {
 
 router.post("/register", async ctx => {
     const {usuario,email,password} = ctx.request.body
-    ctx.body = {
-        usuario,
-        email,
-        password
+    if(!usuario || !email || !password){
+        ctx.body = `[-] Error, debes poner el nombre de usuario, email y password.`
+        ctx.status = 400
+    }else{
+        const query = `
+            INSERT INTO usuarios (nombre, email, password)
+            VALUES ($1, $2, $3)
+            RETURNING *;
+        `;
+        const values = [usuario, email, password];
+        try {
+            const addBBDD = pool.query(query,values);
+            if(!addBBDD){
+                ctx.body = "[-] Error la agregar a la BBDD!"
+                ctx.status = 400
+            }else{
+                ctx.body = "[+] Has agregado correctamente!"
+                ctx.status = 201
+            }
+        } catch (error) {
+            ctx.body = error
+            ctx.status = 500
+        }
+
+
     }
+
+
+
 })
 
 
