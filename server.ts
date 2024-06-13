@@ -43,15 +43,8 @@ router.post("/register", async ctx => {
             ctx.body = error
             ctx.status = 500
         }
-
-
     }
-
-
-
 })
-
-
 
 // Dont touch
 app
@@ -61,3 +54,5 @@ app
 app.listen(PORT, () => {
     console.log(`[+] Puerto en escucha: ${PORT}`)
 })
+
+export default app;

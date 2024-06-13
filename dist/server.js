@@ -63,3 +63,4 @@ app
 app.listen(PORT, () => {
     console.log(`[+] Puerto en escucha: ${PORT}`);
 });
+exports.default = app;
