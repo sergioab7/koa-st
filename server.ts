@@ -46,6 +46,20 @@ router.post("/register", async ctx => {
     }
 })
 
+router.get("/show_users", async(ctx) => {
+    const query = `
+        SELECT nombre 
+        FROM usuarios;
+    `;
+    const users = await pool.query(query);
+    ctx.body = users.rows;
+})
+
+router.get("/user/:id", async(ctx) => {
+    const id = ctx.params.id 
+    ctx.body = id
+})
+
 // Dont touch
 app
     .use(router.routes())

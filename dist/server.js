@@ -56,6 +56,18 @@ router.post("/register", (ctx) => __awaiter(void 0, void 0, void 0, function* ()
         }
     }
 }));
+router.get("/show_users", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    const query = `
+        SELECT nombre 
+        FROM usuarios;
+    `;
+    const users = yield connectDB_1.default.query(query);
+    ctx.body = users.rows;
+}));
+router.get("/user/:id", (ctx) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = ctx.params.id;
+    ctx.body = id;
+}));
 // Dont touch
 app
     .use(router.routes())

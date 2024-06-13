@@ -6,3 +6,9 @@ Content-type: application/json
     "email":"test2@test.com",
     "password":"test2"
 }
+
+### 
+GET http://localhost:3002/show_users
+
+###
+GET http://localhost:3002/user/sergio
